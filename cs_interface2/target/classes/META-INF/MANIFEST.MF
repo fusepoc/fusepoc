@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1532951177963
+Build-Jdk: 1.8.0_144
+Built-By: egouguh
+Bundle-ManifestVersion: 2
+Bundle-Name: A Camel CXF Blueprint Route
+Bundle-SymbolicName: cs_interface2
+Bundle-Version: 0.0.1.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.ericsson.middleware.service.cs_interface2.incident;u
+ ses:="org.apache.camel";version="0.0.1.SNAPSHOT"
+Import-Package: org.apache.camel;version="[2.17,3)",org.osgi.service.blu
+ eprint;version="[1.0.0,2.0.0)"
+Tool: Bnd-1.50.0

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0           https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd          http://camel.apache.org/schema/blueprint/cxf           http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd          http://camel.apache.org/schema/blueprint           http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    <cxf:cxfEndpoint address="/report/" id="reportEndpoint" serviceClass="com.ericsson.middleware.service.cs_interface2.incident.IncidentService">
+        <!-- <cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+        </cxf:properties> -->
+    </cxf:cxfEndpoint>
+    
+    <bean
+        class="com.ericsson.middleware.service.cs_interface2.incident.ReportIncidentProcessor" id="reportIncidentProcessor"/>
+    <bean
+        class="com.ericsson.middleware.service.cs_interface2.incident.StatusIncidentProcessor" id="statusIncidentProcessor"/>
+        
+    <camelContext id="camelContext-4791e7e5-857d-4c5e-a77f-f1205fc0294a" xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="cxf">
+            <!-- route starts from the cxf webservice in POJO mode -->
+            <from id="_from1" uri="cxf:bean:reportEndpoint"/>
+            <log id="_log3" message="body:${body}"/>
+            <recipientList id="_recipientList1">
+                <simple>direct:${header.operationName}</simple>
+            </recipientList>
+        </route>
+        <route id="report">
+            <from id="_from2" uri="direct:reportIncident"/>
+            <log id="_log1" message="reportIncident Call"/>
+            <log id="_log4" message="body:${body}"/>
+            <process id="_process1" ref="reportIncidentProcessor"/>
+            <to id="_to1" uri="log:output"/>
+        </route>
+        <route id="status">
+            <from id="_from3" uri="direct:statusIncident"/>
+            <log id="_log2" message="statusIncident Call"/>
+            <process id="_process2" ref="statusIncidentProcessor"/>
+            <to id="_to2" uri="log:output"/>
+        </route>
+    </camelContext>
+</blueprint>

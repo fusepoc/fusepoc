@@ -1,0 +1,7 @@
+com\ericsson\middleware\service\cs_interface2\incident\IncidentService.class
+com\ericsson\middleware\service\cs_interface2\incident\ReportIncidentProcessor.class
+com\ericsson\middleware\service\cs_interface2\incident\OutputReportIncident.class
+com\ericsson\middleware\service\cs_interface2\incident\InputStatusIncident.class
+com\ericsson\middleware\service\cs_interface2\incident\InputReportIncident.class
+com\ericsson\middleware\service\cs_interface2\incident\StatusIncidentProcessor.class
+com\ericsson\middleware\service\cs_interface2\incident\OutputStatusIncident.class
