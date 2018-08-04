@@ -68,7 +68,7 @@ public class ReportIncidentProcessor implements Processor {
         map.put("key2", "value2");
         
         params.addElement(map);
-        Object result = client.execute("sample.GetBalanceAndDate", params);
+        Object result = client.execute("sample.getBalanceAndDate", params);
         
         Message message = exchange.getIn();
 		//if(message instanceof CxfM)
