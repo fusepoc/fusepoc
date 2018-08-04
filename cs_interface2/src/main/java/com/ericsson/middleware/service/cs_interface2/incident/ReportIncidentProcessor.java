@@ -16,9 +16,18 @@
  */
 package com.ericsson.middleware.service.cs_interface2.incident;
 
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
+import org.apache.xmlrpc.client.XmlRpcClient;
+/*import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;*/
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 /**
  * Processor for processing the report incident.
@@ -28,7 +37,7 @@ public class ReportIncidentProcessor implements Processor {
 	@Override
     public void process(Exchange exchange) throws Exception {
         // get the id of the input
-		Message message = exchange.getIn();
+		/*Message message = exchange.getIn();
 		//if(message instanceof CxfM)
 		
 		Object obj = message.getBody();
@@ -38,7 +47,40 @@ public class ReportIncidentProcessor implements Processor {
 
         // set reply including the id
         OutputReportIncident output = new OutputReportIncident();
-        output.setCode("OK;" + id);
+        output.setCode("OK;====;;" + id);
+        exchange.getOut().setBody(output);*/
+		
+		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+		
+		config.setServerURL(new URL("http://localhost:8111"));
+		config.setBasicUserName("userRpc1");
+		config.setBasicPassword("passRpc1");
+		XmlRpcClient client = new XmlRpcClient();
+        
+        client.setConfig(config);
+        Vector params = new Vector();
+        //params.addElement(obj);
+        //params.addElement(new Integer(10));
+        //params.addElement(new Integer(50));
+        
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("key1", "value1");
+        map.put("key2", "value2");
+        
+        params.addElement(map);
+        Object result = client.execute("sample.GetBalanceAndDate", params);
+        
+        Message message = exchange.getIn();
+		//if(message instanceof CxfM)
+		
+		//Object obj = message.getBody();
+		//obj.getClass();
+    	
+        String id = exchange.getIn().getBody(InputReportIncident.class).getIncidentId();
+
+        // set reply including the id
+        OutputReportIncident output = new OutputReportIncident();
+        output.setCode("OK;====;;" + ((Integer) result).intValue());
         exchange.getOut().setBody(output);
     }
 
