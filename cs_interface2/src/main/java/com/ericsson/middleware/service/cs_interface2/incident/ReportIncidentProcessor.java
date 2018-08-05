@@ -52,10 +52,13 @@ public class ReportIncidentProcessor implements Processor {
 		
 		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 		
-		config.setServerURL(new URL("http://10.61.38.108:10000/Air"));
+		/*config.setServerURL(new URL("http://10.61.38.108:10000/Air"));
 		config.setBasicUserName("user");
 		config.setBasicPassword("user");
-		config.setUserAgent("Air Server/5.0/1.0");
+		config.setUserAgent("Air Server/5.0/1.0");*/
+		
+		config.setServerURL(new URL("http://localhost:8111"));
+				
 		XmlRpcClient client = new XmlRpcClient();
         
         client.setConfig(config);
@@ -69,7 +72,7 @@ public class ReportIncidentProcessor implements Processor {
         map.put("key2", "value2");
         
         params.addElement(map);
-        Object result = client.execute("GetBalanceAndDate", params);
+        Object result = client.execute("sample.getBalanceAndDate", params);
         
         Message message = exchange.getIn();
 		//if(message instanceof CxfM)

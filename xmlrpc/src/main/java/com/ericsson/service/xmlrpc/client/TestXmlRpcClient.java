@@ -5,6 +5,8 @@ import java.util.*;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcTransport;
+import org.apache.xmlrpc.client.XmlRpcTransportFactory;
 
 public class TestXmlRpcClient {
 	
@@ -15,10 +17,19 @@ public class TestXmlRpcClient {
 				XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 				
 				config.setServerURL(new URL("http://localhost:8111"));
+				XmlRpcClient client = new XmlRpcClient();
+				final XmlRpcTransportFactory transportFactory = new XmlRpcTransportFactory()
+				{
+				    public XmlRpcTransport getTransport()
+				    {
+				        return new MessageLoggingTransport(client);
+				    }
+				};
+				
 				/*config.setBasicUserName("userRpc1");
 				config.setBasicPassword("passRpc1");*/
-				XmlRpcClient client = new XmlRpcClient();
-		        
+				//XmlRpcClient client = new XmlRpcClient();
+				client.setTransportFactory(transportFactory);
 		        client.setConfig(config);
 		        Vector params = new Vector();
 		        //params.addElement(obj);
