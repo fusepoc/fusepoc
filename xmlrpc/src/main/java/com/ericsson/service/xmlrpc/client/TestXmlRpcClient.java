@@ -16,7 +16,11 @@ public class TestXmlRpcClient {
 				System.out.println("XML-RPC Client call...");
 				XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
 				
-				config.setServerURL(new URL("http://localhost:8111"));
+				config.setServerURL(new URL("http://10.61.38.108:10000/Air"));
+				config.setBasicUserName("user");
+				config.setBasicPassword("user");
+				config.setUserAgent("Ugw Server/5.0/1.0");
+				
 				XmlRpcClient client = new XmlRpcClient();
 				final XmlRpcTransportFactory transportFactory = new XmlRpcTransportFactory()
 				{
@@ -41,7 +45,7 @@ public class TestXmlRpcClient {
 		        map.put("key2", "value2");
 		        
 		        params.addElement(map);
-		        Object result = client.execute("sample.getBalanceAndDate", params);
+		        Object result = client.execute("GetBalanceAndDate", params);
 		        //client.
 		       // XmlRpcRequest
 		        System.out.print("Client Executed");
