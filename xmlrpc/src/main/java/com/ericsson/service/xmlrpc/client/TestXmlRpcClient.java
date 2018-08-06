@@ -40,9 +40,13 @@ public class TestXmlRpcClient {
 		        /*params.addElement(new Integer(10));
 		        params.addElement(new Integer(50));*/
 		        
-		        Map<String, String> map = new HashMap<String, String>();
-		        map.put("key1", "value1");
-		        map.put("key2", "value2");
+		        Map<String, Object> map = new LinkedHashMap<String, Object>();
+		        map.put("originNodeType", "ADM");
+		        map.put("originHostName", "BELSERVER");
+		        map.put("originTransactionID", "84173353");
+		        map.put("originTimeStamp", new Date());
+		        map.put("subscriberNumberNAI", (Integer)1);
+		        map.put("subscriberNumber", "61490999707");
 		        
 		        params.addElement(map);
 		        Object result = client.execute("GetBalanceAndDate", params);
