@@ -23,6 +23,9 @@ public class MessageLoggingTransport extends XmlRpcSunHttpTransport {
 		pWriter.write(baos);
 		System.out.println(baos.toString());
 		super.writeRequest(pWriter);
+		
 	}
+	
+	
 
 }
